@@ -1,26 +1,14 @@
-import { AsyncAction, MetamaskState } from './store';
+import type { Ethereum, Account } from './types/Ethereum';
 
-interface Ethereum {
-    isMetaMask: boolean;
-    isConnected: () => boolean;
-    request: (_: {method: 'eth_requestAccounts'}) => Promise<string[]>;
+export async function connect(): Promise<Account[]> {
+    const eth: Ethereum = (() => {
+        const global: {window?: Window & {ethereum?: Ethereum}} = globalThis;
+        if (global.window && global.window.ethereum && global.window.ethereum.isMetaMask) {
+            return global.window.ethereum;
+        } else {
+            throw new Error('Metamask is not installed');
+        }
+    })();
+    const accounts = await eth.request({method: 'eth_requestAccounts'});
+    return accounts;
 }
-
-async function connect(): Promise<MetamaskState> {
-    const win: Window & {ethereum?: Ethereum} = window;
-    if (!win.ethereum || !win.ethereum.isMetaMask) {
-        return {tag: 'Error', message: 'Metamask not installed'};
-    }
-    const accounts = await win.ethereum.request({method: 'eth_requestAccounts'});
-    return {tag: 'Connected', account: accounts[0]};
-}
-
-export const connectMetamask: () => AsyncAction<Promise<void>> = () => async (dispatch, getState) => {
-    try {
-        dispatch({type: 'metamask', metamask: {tag: 'Loading'}});
-        const state = await connect();
-        dispatch({type: 'metamask', metamask: state});
-    } catch (err) {
-        dispatch({type: 'metamask', metamask: {tag: 'Error', message: `${err}`}});
-    }
-};

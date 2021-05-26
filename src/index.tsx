@@ -4,8 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { Provider } from 'react-redux';
-import { createStore } from './store';
+import createStore from './createStore';
 import App from './components/App';
+
+const store = createStore();
 
 ReactDOM.render(
     <React.StrictMode>
@@ -13,7 +15,7 @@ ReactDOM.render(
             <CssBaseline />
             <Container maxWidth="sm">
                 <Box padding="50px">
-                    <Provider store={createStore()}>
+                    <Provider store={store}>
                         <App />
                     </Provider>
                 </Box>
