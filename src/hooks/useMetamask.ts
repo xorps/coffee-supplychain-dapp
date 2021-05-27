@@ -1,5 +1,5 @@
 import useSelector from './useSelector';
 
-export default function useMetamask() {
-    return useSelector(state => state.metamask);
-}
+const useMetamask = () => useSelector(state => state.metamask);
+
+export default useMetamask;

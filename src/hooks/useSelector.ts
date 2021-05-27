@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useSelector as _useSelector } from 'react-redux';
 import State from '../types/State';
 
-export default function <T>(select: (state: State) => T): T {
-    return useSelector(select);
-}
+const useSelector: <T>(select: (state: State) => T) => T = (select) => _useSelector(select);
+
+export default useSelector;

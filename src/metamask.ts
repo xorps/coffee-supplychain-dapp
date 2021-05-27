@@ -1,4 +1,5 @@
-import type { Ethereum, Account } from './types/Ethereum';
+import { Ethereum, Account } from './types/Ethereum';
+import Store from './types/Store';
 
 export async function connect(): Promise<Account[]> {
     const eth: Ethereum = (() => {
@@ -11,4 +12,8 @@ export async function connect(): Promise<Account[]> {
     })();
     const accounts = await eth.request({method: 'eth_requestAccounts'});
     return accounts;
+}
+
+export function subscribe(eth: Ethereum, store: Store) {
+    eth.on('chainChanged', (chainId) => {});
 }

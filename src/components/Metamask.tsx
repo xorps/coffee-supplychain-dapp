@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import useDispatch from '../hooks/useDispatch';
 import useMetamask from '../hooks/useMetamask';

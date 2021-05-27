@@ -1,7 +1,7 @@
-import MetamaskState from './MetamaskState';
+import createStore from '../createStore';
 
-type State = {
-    metamask: MetamaskState
-};
+const getState = () => createStore().getState();
+
+type State = ReturnType<typeof getState>;
 
 export default State;
