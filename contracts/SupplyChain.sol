@@ -42,6 +42,7 @@ event Sold(uint256 upc);
 event Shipped(uint256 upc);
 event Received(uint256 upc);
 event Purchased(uint256 upc);
+event NewProduct();
 
 contract SupplyChain {
     address private owner;
@@ -60,6 +61,14 @@ contract SupplyChain {
         this.sku = 1;
     }
 
+    function newProduct(string notes, uint256 price) public {
+        Product p = Product({id: 0, notes: notes, price: price});
+        this.products[p.id] = p;
+        emit NewProduct();
+    }
+
+    /*
+
     function harvestItem(
         uint256 upc, 
         address farmer,
@@ -74,4 +83,5 @@ contract SupplyChain {
         this.items[upc] = newItem;
         emit Harvested(upc);
     }
+    */
 }

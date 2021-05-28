@@ -16,7 +16,9 @@ function Metamask() {
     } else if (state.tag === 'Error') {
         return <Button fullWidth variant="outlined" color="secondary">Error: {state.message}</Button>;
     } else {
-        return <Button fullWidth variant="outlined" color="primary">account: {state.account}<br />chain: {translate(state.chainId)}</Button>;
+        const network = translate(state.chainId);
+        const {account} = state;
+        return <Button fullWidth variant="outlined" color="primary">{account}<br />{network}</Button>;
     }
 }
 

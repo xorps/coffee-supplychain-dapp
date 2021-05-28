@@ -1,20 +1,20 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import Metamask from './Metamask';
-import Form from './Form';
 import useMetamask from '../hooks/useMetamask';
+import Padded from './Padded';
+import HarvestItem from './HarvestItem';
+import NewProduct from './NewProduct';
 
 function App() {
     const metamask = useMetamask();
     if (metamask.tag === "Connected") {
-        return <>
+        return <Padded amount="10px">
             <Metamask />
-            <Box paddingTop="50px">
-                <Form />
-            </Box>
-        </>;
+            <NewProduct />
+            <HarvestItem />
+        </Padded>
     } else {
-        return <Metamask />;
+        return <Padded amount="10px"><Metamask /></Padded>;
     }
 }
 

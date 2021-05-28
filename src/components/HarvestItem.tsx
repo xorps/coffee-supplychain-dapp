@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-function HarvestItem() {
+export default function HarvestItem() {
     return (
         <Card>
             <CardHeader title="Harvest Item" />
@@ -19,5 +19,3 @@ function HarvestItem() {
         </Card>
     );
 }
-
-export default HarvestItem;
