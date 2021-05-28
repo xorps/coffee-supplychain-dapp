@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import metamask from './reducers/metamask';
+import { reducer as metamask } from './slices/metamask';
 
 const createStore = () => configureStore({
     reducer: {metamask}
