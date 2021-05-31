@@ -4,13 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { Provider } from 'react-redux';
-import createStore from './createStore';
-import { subscribe } from './slices/metamask';
+import { createStore } from './store';
 import App from './components/App';
 
 const store = createStore();
-
-subscribe(store);
 
 ReactDOM.render(
     <React.StrictMode>

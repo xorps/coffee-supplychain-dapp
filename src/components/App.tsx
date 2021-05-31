@@ -1,21 +1,19 @@
 import React from 'react';
 import Metamask from './Metamask';
-import useMetamask from '../hooks/useMetamask';
 import Padded from './Padded';
 import HarvestItem from './HarvestItem';
 import NewProduct from './NewProduct';
+import { useWallet } from '../store';
 
 function App() {
-    const metamask = useMetamask();
-    if (metamask.tag === "Connected") {
-        return <Padded amount="10px">
+    const wallet = useWallet();
+    return <>
+        <Padded amount="10px">
             <Metamask />
-            <NewProduct />
-            <HarvestItem />
+            {wallet.state === 'WalletConnected' && <NewProduct />}
+            {wallet.state === 'WalletConnected' && <HarvestItem />}
         </Padded>
-    } else {
-        return <Padded amount="10px"><Metamask /></Padded>;
-    }
+    </>;
 }
 
 export default App;

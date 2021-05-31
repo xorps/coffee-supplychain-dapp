@@ -34,16 +34,6 @@ struct Item {
     Farmer farmer;
 }
 
-event Harvested(uint256 upc);
-event Processed(uint256 upc);
-event Packed(uint256 upc);
-event ForSale(uint256 upc);
-event Sold(uint256 upc);
-event Shipped(uint256 upc);
-event Received(uint256 upc);
-event Purchased(uint256 upc);
-event NewProduct();
-
 contract SupplyChain {
     address private owner;
     uint256 private upc;
@@ -55,16 +45,29 @@ contract SupplyChain {
     // UPC => TxHash[]
     mapping(uint256 => string[]) private itemsHistory;
 
+    event Harvested(uint256 upc);
+    event Processed(uint256 upc);
+    event Packed(uint256 upc);
+    event ForSale(uint256 upc);
+    event Sold(uint256 upc);
+    event Shipped(uint256 upc);
+    event Received(uint256 upc);
+    event Purchased(uint256 upc);
+    event NewProduct(uint256 id);
+
+    uint256 private productID = 0;
+    mapping(uint256 => Product) private products;
+
     constructor() {
-        this.owner = msg.sender;
-        this.upc = 1;
-        this.sku = 1;
+        owner = msg.sender;
+        upc = 1;
+        sku = 1;
     }
 
-    function newProduct(string notes, uint256 price) public {
-        Product p = Product({id: 0, notes: notes, price: price});
-        this.products[p.id] = p;
-        emit NewProduct();
+    function newProduct(string calldata notes, uint256 price) public {
+        uint256 id = productID++;
+        products[id] = Product({id: id, notes: notes, price: price});
+        emit NewProduct(id);
     }
 
     /*
