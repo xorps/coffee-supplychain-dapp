@@ -54,7 +54,7 @@ async function connect(dispatch: Dispatch<AnyAction>) {
             const accounts = await eth.request({method: 'eth_requestAccounts'});
             const account = accounts[0];
             const chainId = await eth.request({method: 'eth_chainId'});
-            return {account, network: translateNetwork(chainId)};
+            return {contractAddress: '0xcontract', account, network: translateNetwork(chainId)};
         })()));
     } catch (err) {
         dispatch(ConnectWalletRejection(translateError(err)));

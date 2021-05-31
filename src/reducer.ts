@@ -6,7 +6,7 @@ const initialState: State = {state: 'Offline'};
 
 const reducer: Reducer<State> = (state = initialState, action) => {
     if (ConnectWalletPending.match(action)) return {state: 'WalletConnecting'};
-    else if (ConnectWalletLoaded.match(action)) return {state: 'WalletConnected', network: action.payload.network, account: action.payload.account};
+    else if (ConnectWalletLoaded.match(action)) return {...action.payload, state: 'WalletConnected'};
     else if (ConnectWalletRejection.match(action)) return {state: 'WalletConnectionFailed', error: action.payload};
     else if (UpdateAccount.match(action) && state.state === 'WalletConnected') {
         const account = action.payload;
